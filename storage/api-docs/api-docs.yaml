@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: 'Api Documentation'
+  version: 1.0.0
+paths:
+  /api/login:
+    post:
+      tags:
+        - Auth
+      summary: 'User Login'
+      description: 'User Login'
+      operationId: Login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: text
+                password:
+                  type: password
+              type: object
+          application/json:
+            schema: []
+      responses:
+        200:
+          description: 'Login Successfully'
+          content:
+            application/json:
+              schema: []
+        422:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema: []
+        403:
+          description: Forbidden
+  /api/locations:
+    get:
+      tags:
+        - 'Base APIs'
+      summary: 'Locations List'
+      description: 'Get Locations List with freezers and blocks'
+      operationId: 'Locations List'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema: []
+  /api/calculate:
+    post:
+      tags:
+        - 'Base APIs'
+      summary: 'Locations List'
+      description: 'Calculate the amount of booking'
+      operationId: 'Calculate the amount of booking'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - location_id
+                - product_volume
+                - temperature
+                - date_from
+                - date_to
+              properties:
+                location_id:
+                  description: 'ID местоположения <strong> (из /api/locations ) </strong>'
+                  type: number
+                product_volume:
+                  description: 'Введите объем продукции'
+                  type: number
+                temperature:
+                  description: 'Введите температура для хранения продуктов'
+                  type: number
+                date_from:
+                  description: 'Дата начала бронирования'
+                  type: string
+                date_to:
+                  description: 'Дата окончания бронирования'
+                  type: string
+              type: object
+          application/json:
+            schema: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema: []
+  /api/booking:
+    post:
+      tags:
+        - 'Base APIs'
+      summary: 'Booking blocks'
+      description: 'Booking blocks'
+      operationId: 'Booking blocks'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - location_id
+                - product_volume
+                - temperature
+                - date_from
+                - date_to
+              properties:
+                location_id:
+                  description: 'ID местоположения <strong> (из /api/locations ) </strong>'
+                  type: number
+                product_volume:
+                  description: 'Введите объем продукции'
+                  type: number
+                temperature:
+                  description: 'Введите температура для хранения продуктов'
+                  type: number
+                date_from:
+                  description: 'Дата начала бронирования'
+                  type: string
+                date_to:
+                  description: 'Дата окончания бронирования'
+                  type: string
+              type: object
+          application/json:
+            schema: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema: []
+  /api/my-bookings:
+    get:
+      tags:
+        - 'Base APIs'
+      summary: 'Locations List of specific user bookings'
+      description: 'Get List of specific user bookings'
+      operationId: 'List of specific user bookings'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema: []
+components:
+  securitySchemes:
+    sanctum:
+      type: apiKey
+      description: 'Bearer 4|kOBB05rqw7kyE1yeFX2GA709bewzmQ6ci1BdRkgi)'
+      name: Authorization
+      in: header
